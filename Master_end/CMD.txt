@@ -1,0 +1,37 @@
+Отключаем Hyper-V Если не заупскается Docker Terminal
+
+	Создать image из докерфайла main
+docker build -t asturov/master -f main .
+docker build -t asturov/worker -f worker .
+
+	пуш на хаб !!! Обязательно. Спросить как можно без этого(!).
+docker login
+password
+docker push asturov/master
+docker push asturov/worker
+
+	подъём кластера
+docker swarm init  --advertise-addr 192.168.99.104 (105 и 106 - будут доп. машины)
+
+docker swarm join-token worker (worker|manager). 
+
+docker-machine create —driver virtualbox worker
+docker-machine create —driver virtualbox worker1	
+
+$ docker-machine.exe env worker
+$ docker-machine.exe env worker1
+
+$ eval $("A:\Program Files\Docker Toolbox\docker-machine.exe" env default)
+
+docker-machine ssh worker1 
+Вставляем токен который получили ранее.
+
+docker-machine ssh worker 
+Вставляем токен который получили ранее.
+Swarm готов!
+
+	деплой на сварм
+docker stack deploy --compose-file ds-final.yml fib
+docker stack ps fib - Посмотреть какие сервисы запушенны сейчас
+docker stack rm fib - Дропаем все services fib.
+

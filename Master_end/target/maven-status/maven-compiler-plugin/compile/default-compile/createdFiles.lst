@@ -1,0 +1,4 @@
+com\springjpa\repo\NumberRepository.class
+com\springjpa\controller\WebController.class
+com\springjpa\model\Number.class
+com\springjpa\SpringJpaPostgreSqlApplication.class

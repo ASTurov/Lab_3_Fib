@@ -1,0 +1,6 @@
+FROM openjdk:8-jre-slim
+
+
+COPY target/SpringJPA-0.0.1.jar /SpringJPA.jar
+CMD ["/usr/bin/java", "-jar", "/SpringJPA.jar"]
+
