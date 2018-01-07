@@ -1,5 +1,0 @@
-FROM openjdk:8-jre-slim
-
-COPY target/Master.jar /SpringJPA.jar
-CMD ["/usr/bin/java", "-jar", "/SpringJPA.jar"]
-
