@@ -15,7 +15,7 @@ docker push asturov/worker
 
 подъём кластера
 
-docker swarm init  --advertise-addr 192.168.99.104 (105 и 106 - будут доп. машины)
+docker swarm init  --advertise-addr 192.168.99.100 (101 и 102 - будут доп. машины)
 
 docker swarm join-token worker (worker|manager). 
 
