@@ -1,26 +1,25 @@
-Отключаем Hyper-V Если не заупскается Docker Terminal
+п»їРћС‚РєР»СЋС‡Р°РµРј Hyper-V Р•СЃР»Рё РЅРµ Р·Р°СѓРїСЃРєР°РµС‚СЃСЏ Docker Terminal
 
-	
-Создать image из докерфайла main
+РЎРѕР·РґР°С‚СЊ image РёР· РґРѕРєРµСЂС„Р°Р№Р»Р° main
 
 docker build -t asturov/master -f main .
 docker build -t asturov/worker -f worker .
 
-пуш на хаб !!! Обязательно. Спросить как можно без этого(!).
+РїСѓС€ РЅР° С…Р°Р± !!! РћР±СЏР·Р°С‚РµР»СЊРЅРѕ. РЎРїСЂРѕСЃРёС‚СЊ РєР°Рє РјРѕР¶РЅРѕ Р±РµР· СЌС‚РѕРіРѕ(!).
 
 docker login
 password
 docker push asturov/master
 docker push asturov/worker
 
-подъём кластера
+РїРѕРґСЉС‘Рј РєР»Р°СЃС‚РµСЂР°
 
-docker swarm init  --advertise-addr 192.168.99.100 (101 и 102 - будут доп. машины)
+docker swarm init  --advertise-addr 192.168.99.100 (101 Рё 102 - Р±СѓРґСѓС‚ РґРѕРї. РјР°С€РёРЅС‹)
 
 docker swarm join-token worker (worker|manager). 
 
-docker-machine create —driver virtualbox worker
-docker-machine create —driver virtualbox worker1	
+docker-machine create вЂ”driver virtualbox worker
+docker-machine create вЂ”driver virtualbox worker1	
 
 $ docker-machine.exe env worker
 $ docker-machine.exe env worker1
@@ -28,15 +27,15 @@ $ docker-machine.exe env worker1
 $ eval $("A:\Program Files\Docker Toolbox\docker-machine.exe" env default)
 
 docker-machine ssh worker1 
-Вставляем токен который получили ранее.
+Р’СЃС‚Р°РІР»СЏРµРј С‚РѕРєРµРЅ РєРѕС‚РѕСЂС‹Р№ РїРѕР»СѓС‡РёР»Рё СЂР°РЅРµРµ.
 
 docker-machine ssh worker 
-Вставляем токен который получили ранее.
-Swarm готов!
+Р’СЃС‚Р°РІР»СЏРµРј С‚РѕРєРµРЅ РєРѕС‚РѕСЂС‹Р№ РїРѕР»СѓС‡РёР»Рё СЂР°РЅРµРµ.
+Swarm РіРѕС‚РѕРІ!
 
-деплой на сварм
+РґРµРїР»РѕР№ РЅР° СЃРІР°СЂРј
 
 docker stack deploy --compose-file new.yml fib
-docker stack ps fib - Посмотреть какие сервисы запушенны сейчас
-docker stack rm fib - Дропаем все services fib.
+docker stack ps fib - РџРѕСЃРјРѕС‚СЂРµС‚СЊ РєР°РєРёРµ СЃРµСЂРІРёСЃС‹ Р·Р°РїСѓС€РµРЅРЅС‹ СЃРµР№С‡Р°СЃ
+docker stack rm fib - Р”СЂРѕРїР°РµРј РІСЃРµ services fib.
 

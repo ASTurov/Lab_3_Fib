@@ -15,46 +15,48 @@ import com.springjpa.model.Number;
 import com.springjpa.repo.NumberRepository;
 import org.springframework.web.client.RestTemplate;
 
+import javax.transaction.Transactional;
+
 @RestController
 public class WebController {
-	@Value("${docker.worker.url}")
-	private String workerUrl;
+
 	@Autowired
-	NumberRepository repository;
+	WebService service;
+//	NumberRepository repository;
 
 	@RequestMapping(value = "calcnew", method = RequestMethod.GET)
 	public String calcNew()
 	{
-		String url = workerUrl + "/addnew";
-		RestTemplate restTemplate = new RestTemplate();
-		String result = restTemplate.getForObject(url, String.class);
+		service.calculateNumber();
 
-		return result + " hI sent it!";
+		return " I sent it!";
 	}
+//
+//	@RequestMapping(value = "clean", method = RequestMethod.GET)
+//	@Transactional
+//	public String clean(){
+//		repository.deleteAll();
+//		return "Database is empty!";
+//	}
 
-	@RequestMapping(value = "clean", method = RequestMethod.GET)
-	public String clean(){
-		repository.deleteAll();
-		return "Database is empty!";
-	}
-
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping("/")
 	public String hello()
 	{
 		return "Hello! I'm master";
 	}
 
 	@RequestMapping(value = "getlast", method = RequestMethod.GET)
+	@Transactional
 	public String getLast()
 	{
-		Number tmpNum = repository.findTop1ByOrderByIdDesc();
+		Number tmpNum = service.getLastNumber();//repository.findTop1ByOrderByIdDesc();
 		if (tmpNum == null)
 		{
 			return "Database is empty!";
 		}
 		else
 		{
-			return repository.findTop1ByOrderByIdDesc().toString();
+			return tmpNum.toString();
 		}
 	}
 }
